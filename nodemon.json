@@ -1,6 +1,6 @@
 {
-    "env":{
+    "env": {
         "MONGO_ATLAS_PW": "bcitneybour",
-        "JWT_KEY": "secretkeyfortokens"
+        "JWT_KEY": "secret"
     }
 }
