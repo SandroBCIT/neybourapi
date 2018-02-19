@@ -6,8 +6,9 @@ const mongoose = require("mongoose");
 
 const productRoutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
-
-mongoose.connect("mongodb://node-shop:" + process.env.MONGO_ATLAS_PW + "@node-rest-shop-shard-00-00-wrf58.mongodb.net:27017,node-rest-shop-shard-00-01-wrf58.mongodb.net:27017,node-rest-shop-shard-00-02-wrf58.mongodb.net:27017/test?ssl=true&replicaSet=node-rest-shop-shard-0&authSource=admin");
+const userRoutes = require("./api/routes/users");
+ 
+mongoose.connect("mongodb://admin:" + process.env.MONGO_ATLAS_PW + "@neybour-shard-00-00-hd6e2.mongodb.net:27017,neybour-shard-00-01-hd6e2.mongodb.net:27017,neybour-shard-00-02-hd6e2.mongodb.net:27017/test?ssl=true&replicaSet=neybour-shard-0&authSource=admin");
 
 mongoose.Promise = global.Promise;
 
@@ -24,13 +25,14 @@ app.use((req, res, next) => {
   if (req.method === "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     return res.status(200).json({});
-  }
+  } 
   next();
 });
 
 // Routes which should handle requests
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
+app.use("/users", userRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
