@@ -1,22 +1,22 @@
 const mongoose = require("mongoose");
 
-const Product = require("../models/product");
+const Post = require("../models/post");
 
-exports.products_get_all = (req, res, next) => {
-    Product.find()
+exports.posts_get_all = (req, res, next) => {
+    Post.find()
     .select("name price _id")
     .exec()
     .then(docs => {
         const response = {
             count: docs.length,
-            products: docs.map(doc => {
+            posts: docs.map(doc => {
                 return {
                     _id: doc._id,
                     name: doc.name,
                     price: doc.price,
                     request: {
                         type: "GET",
-                        url: "http://localhost:3000/products/" + doc._id
+                        url: "http://localhost:3000/posts/" + doc._id
                     }
                 };
             })
@@ -34,24 +34,24 @@ exports.products_get_all = (req, res, next) => {
     });
 }
 
-exports.products_create_product = (req, res, next) => {
-    const product = new Product({
+exports.posts_create_post = (req, res, next) => {
+    const post = new Post({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         price: req.body.price 
     });
-    product
+    post
     .save()
     .then(result => {
         res.status(201).json({
-            message: "Created product successfully",
-            createdProduct: {
+            message: "Created post successfully",
+            createdPost: {
                 name: result.name,
                 price: result.price,
                 _id: result._id,
                 request: {
                     type: 'GET',
-                    url: "http://localhost:3000/products/" + result._id
+                    url: "http://localhost:3000/posts/" + result._id
                 }
             }
         });
@@ -61,18 +61,18 @@ exports.products_create_product = (req, res, next) => {
     });
 }
 
-exports.products_get_product = (req, res, next) => {
-    const id = req.params.productId;
-    Product.findById(id)
+exports.posts_get_post = (req, res, next) => {
+    const id = req.params.postId;
+    Post.findById(id)
     .select('name price _id')
     .exec()
     .then(doc => {
         if (doc) {
             res.status(200).json({
-                product: doc,
+                post: doc,
                 request: {
                     type: 'GET',
-                    url: 'http://localhost:3000/products'
+                    url: 'http://localhost:3000/posts'
                 }
             });
         } else {
@@ -86,20 +86,20 @@ exports.products_get_product = (req, res, next) => {
     });
 }
 
-exports.products_update_product = (req, res, next) => {
-    const id = req.params.productId;
+exports.posts_update_post = (req, res, next) => {
+    const id = req.params.postId;
     const updateOps = {};
     for (const ops of req.body) {
         updateOps[ops.propName] = ops.value;
     }
-    Product.update({ _id: id }, { $set: updateOps })
+    Post.update({ _id: id }, { $set: updateOps })
     .exec()
     .then(result => {
         res.status(200).json({
-            message: 'Product updated',
+            message: 'Post updated',
             request: {
                 type: 'GET',
-                url: 'http://localhost:3000/products/' + id
+                url: 'http://localhost:3000/posts/' + id
             }
         });
     })
@@ -108,16 +108,16 @@ exports.products_update_product = (req, res, next) => {
     });
 }
 
-exports.products_delete_product = (req, res, next) => {
-    const id = req.params.productId;
-    Product.remove({ _id: id })
+exports.posts_delete_post = (req, res, next) => {
+    const id = req.params.posttId;
+    Post.remove({ _id: id })
     .exec()
     .then(result => {
         res.status(200).json({
-            message: 'Product deleted',
+            message: 'Post deleted',
             request: {
                 type: 'POST',
-                url: 'http://localhost:3000/products',
+                url: 'http://localhost:3000/posts',
                 body: { name: 'String', price: 'Number' }
             }
         });
