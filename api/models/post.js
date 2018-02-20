@@ -2,8 +2,13 @@ const mongoose = require('mongoose');
 
 const postSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    name: { type: String, required: true },
-    price: { type: Number, required: true }
+    title: { type: String, required: true },
+    body: { type: String, required: true },
+    coords: {
+        lat: { type: Number, required: true },
+        long: { type: Number, required: true }
+    },
+    toggle: { type: Boolean, required: true }
 });
 
 module.exports = mongoose.model('Post', postSchema);

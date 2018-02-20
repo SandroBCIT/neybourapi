@@ -4,7 +4,7 @@ const Post = require("../models/post");
 
 exports.posts_get_all = (req, res, next) => {
     Post.find()
-    .select("name price _id")
+    .select("_id title body coords toggle")
     .exec()
     .then(docs => {
         const response = {
@@ -12,8 +12,10 @@ exports.posts_get_all = (req, res, next) => {
             posts: docs.map(doc => {
                 return {
                     _id: doc._id,
-                    name: doc.name,
-                    price: doc.price,
+                    title: doc.title,
+                    body: doc.body,
+                    coords: doc.coords,
+                    toggle: doc.toggle,
                     request: {
                         type: "GET",
                         url: "http://localhost:3000/posts/" + doc._id
@@ -37,8 +39,10 @@ exports.posts_get_all = (req, res, next) => {
 exports.posts_create_post = (req, res, next) => {
     const post = new Post({
         _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
-        price: req.body.price 
+        title: req.body.title,
+        body: req.body.body,
+        coords: req.body.coords,
+        toggle: req.body.toggle, 
     });
     post
     .save()
@@ -46,9 +50,11 @@ exports.posts_create_post = (req, res, next) => {
         res.status(201).json({
             message: "Created post successfully",
             createdPost: {
-                name: result.name,
-                price: result.price,
                 _id: result._id,
+                title: result.title,
+                body: result.body,
+                coords: result.coords,
+                toggle: result.toggle,
                 request: {
                     type: 'GET',
                     url: "http://localhost:3000/posts/" + result._id
@@ -64,7 +70,7 @@ exports.posts_create_post = (req, res, next) => {
 exports.posts_get_post = (req, res, next) => {
     const id = req.params.postId;
     Post.findById(id)
-    .select('name price _id')
+    .select('_id title body coords toggle')
     .exec()
     .then(doc => {
         if (doc) {
@@ -99,7 +105,7 @@ exports.posts_update_post = (req, res, next) => {
             message: 'Post updated',
             request: {
                 type: 'GET',
-                url: 'http://localhost:3000/posts/' + id
+                url: 'http://localhost:4567/posts/' + id
             }
         });
     })
@@ -118,7 +124,7 @@ exports.posts_delete_post = (req, res, next) => {
             request: {
                 type: 'POST',
                 url: 'http://localhost:3000/posts',
-                body: { name: 'String', price: 'Number' }
+                body: { title: 'String', body: 'String', coords: 'Object', toggle: 'Boolean' }
             }
         });
     })
