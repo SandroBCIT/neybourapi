@@ -8,6 +8,7 @@ const postRoutes = require("./api/routes/posts");
 // const orderRoutes = require("./api/routes/orders");
 const userRoutes = require('./api/routes/users');
 
+//Connects to DB
 mongoose.connect(
     "mongodb://admin:" + process.env.MONGO_ATLAS_PW + "@neybour-shard-00-00-hd6e2.mongodb.net:27017,neybour-shard-00-01-hd6e2.mongodb.net:27017,neybour-shard-00-02-hd6e2.mongodb.net:27017/test?ssl=true&replicaSet=neybour-shard-0&authSource=admin",
     {
