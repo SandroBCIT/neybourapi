@@ -17,6 +17,7 @@ mongoose.connect(
 );
 mongoose.Promise = global.Promise;
 
+//for images
 app.use(morgan("dev"));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
