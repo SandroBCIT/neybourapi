@@ -131,3 +131,25 @@ exports.users_delete_user = (req, res, next) => {
         res.status(500).json({ error: err });
     });
 }
+
+exports.users_update_userPosts = (req, res, next) => {
+    const id = req.params.userId;
+    const updateOps = {};
+    for (const ops of req.body) {
+        updateOps[ops.propName] = ops.value;
+    }
+    Post.update({ _id: id }, { $set: updateOps })
+    .exec()
+    .then(result => {
+        res.status(200).json({
+            message: 'Posts array updated',
+            request: {
+                type: 'GET',
+                url: 'http://localhost:4567/posts/' + id
+            }
+        });
+    })
+    .catch(err => {
+        res.status(500).json({ error: err });
+    });
+}
