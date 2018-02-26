@@ -8,7 +8,7 @@ const PostsController = require('../controllers/posts');
 router.get("/", PostsController.posts_get_all);
 
 // creates new post
-router.post("/", PostsController.posts_create_post);
+router.post("/", checkAuth, PostsController.posts_create_post);
 
 //finds post by ID
 router.get("/:postId", PostsController.posts_get_post);
