@@ -115,7 +115,7 @@ exports.posts_update_post = (req, res, next) => {
 }
 
 exports.posts_delete_post = (req, res, next) => {
-    const id = req.params.posttId;
+    const id = req.params.postId;
     Post.remove({ _id: id })
     .exec()
     .then(result => {
