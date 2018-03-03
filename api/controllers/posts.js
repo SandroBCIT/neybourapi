@@ -115,17 +115,11 @@ exports.posts_update_post = (req, res, next) => {
 }
 
 exports.posts_delete_post = (req, res, next) => {
-    const id = req.params.postId;
-    Post.remove({ _id: id })
+    Post.remove({ _id: req.params.postId })
     .exec()
     .then(result => {
         res.status(200).json({
             message: 'Post deleted',
-            request: {
-                type: 'POST',
-                url: 'http://localhost:3000/posts',
-                body: { title: 'String', body: 'String', coords: 'Object', toggle: 'Boolean' }
-            }
         });
     })
     .catch(err => {
