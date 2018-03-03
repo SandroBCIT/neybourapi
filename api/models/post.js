@@ -6,7 +6,7 @@ const postSchema = mongoose.Schema({
     body: { type: String, required: true },
     coords: {
         lat: { type: Number, required: true },
-        lng: { type: Number, required: true }
+        long: { type: Number, required: true }
     },
     toggle: { type: Boolean, required: true }
 });
