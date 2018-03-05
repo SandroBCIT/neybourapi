@@ -153,3 +153,24 @@ exports.users_update_userPosts = (req, res, next) => {
         res.status(500).json({ error: err });
     });
 }
+
+exports.users_get_user = (req, res, next) => {
+    const id = req.params.userId;
+    User.findById(id)
+    .select('_id title body coords toggle')
+    .exec()
+    .then(doc => {
+        if (doc) {
+            res.status(200).json({
+                user: doc
+            });
+        } else {
+            res
+            .status(404)
+            .json({ message: "No valid entry found for provided ID" });
+        }
+    })
+    .catch(err => {
+        res.status(500).json({ error: err });
+    });
+}

@@ -19,4 +19,8 @@ router.delete("/:userId", checkAuth, UserController.users_delete_user);
 //update user posts
 router.patch("/:userId", checkAuth, UserController.users_update_userPosts);
 
+//finds user by ID
+router.get("/:userId", UserController.users_get_user);
+//add check auth later
+
 module.exports = router;
