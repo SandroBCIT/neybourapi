@@ -1,5 +1,5 @@
-exports.hoods_get_all = 
-{
+exports.hoods_get_all = ()=> 
+{ return( "regions":
     {
         "type": "FeatureCollection",
         "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
@@ -29,4 +29,4 @@ exports.hoods_get_all =
         ]
         }
         
-}
+)}
