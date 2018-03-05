@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const postRoutes = require("./api/routes/posts");
 // const orderRoutes = require("./api/routes/orders");
 const userRoutes = require('./api/routes/users');
-const hoodsRoutes = require('./api/routes/hoods');
+// const hoodsRoutes = require('./api/routes/hoods');
 
 mongoose.connect(
     "mongodb://admin:bcitneybour@neybour-shard-00-00-hd6e2.mongodb.net:27017,neybour-shard-00-01-hd6e2.mongodb.net:27017,neybour-shard-00-02-hd6e2.mongodb.net:27017/test?ssl=true&replicaSet=neybour-shard-0&authSource=admin",
@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 app.use("/posts", postRoutes);
 // app.use("/orders", orderRoutes);
 app.use("/users", userRoutes);
-app.use("/hoods", hoodsRoutes);
+// app.use("/hoods", hoodsRoutes);
 
 
 app.use((req, res, next) => {
