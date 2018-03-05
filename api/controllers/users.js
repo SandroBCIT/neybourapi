@@ -138,7 +138,7 @@ exports.users_update_userPosts = (req, res, next) => {
     for (const ops of req.body) {
         updateOps[ops.propName] = ops.value;
     }
-    Post.update({ _id: id }, { $set: updateOps })
+    User.update({ _id: id }, { $set: updateOps })
     .exec()
     .then(result => {
         res.status(200).json({
