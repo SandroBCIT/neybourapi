@@ -15,6 +15,7 @@ exports.posts_get_all = (req, res, next) => {
                     title: doc.title,
                     body: doc.body,
                     coords: doc.coords,
+                    region: doc.region,
                     toggle: doc.toggle,
                     request: {
                         type: "GET",
@@ -42,6 +43,7 @@ exports.posts_create_post = (req, res, next) => {
         title: req.body.title,
         body: req.body.body,
         coords: req.body.coords,
+        region: req.body.region,
         toggle: req.body.toggle, 
     });
     post
@@ -54,6 +56,7 @@ exports.posts_create_post = (req, res, next) => {
                 title: result.title,
                 body: result.body,
                 coords: result.coords,
+                region: result.region,
                 toggle: result.toggle,
                 request: {
                     type: 'GET',
