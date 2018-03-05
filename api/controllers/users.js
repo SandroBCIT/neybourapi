@@ -157,7 +157,7 @@ exports.users_update_userPosts = (req, res, next) => {
 exports.users_get_user = (req, res, next) => {
     const id = req.params.userId;
     User.findById(id)
-    .select('_id title body coords toggle')
+    .select('_id email name posts')
     .exec()
     .then(doc => {
         if (doc) {
