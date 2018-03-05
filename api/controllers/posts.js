@@ -4,7 +4,7 @@ const Post = require("../models/post");
 
 exports.posts_get_all = (req, res, next) => {
     Post.find()
-    .select("_id title body coords toggle")
+    .select("_id title body coords toggle region")
     .exec()
     .then(docs => {
         const response = {
@@ -16,11 +16,7 @@ exports.posts_get_all = (req, res, next) => {
                     body: doc.body,
                     coords: doc.coords,
                     region: doc.region,
-                    toggle: doc.toggle,
-                    request: {
-                        type: "GET",
-                        url: "http://localhost:3000/posts/" + doc._id
-                    }
+                    toggle: doc.toggle
                 };
             })
         };
@@ -57,11 +53,7 @@ exports.posts_create_post = (req, res, next) => {
                 body: result.body,
                 coords: result.coords,
                 region: result.region,
-                toggle: result.toggle,
-                request: {
-                    type: 'GET',
-                    url: "http://localhost:3000/posts/" + result._id
-                }
+                toggle: result.toggle
             }
         });
     })
@@ -78,11 +70,7 @@ exports.posts_get_post = (req, res, next) => {
     .then(doc => {
         if (doc) {
             res.status(200).json({
-                post: doc,
-                request: {
-                    type: 'GET',
-                    url: 'http://localhost:3000/posts'
-                }
+                post: doc
             });
         } else {
             res
@@ -105,11 +93,7 @@ exports.posts_update_post = (req, res, next) => {
     .exec()
     .then(result => {
         res.status(200).json({
-            message: 'Post updated',
-            request: {
-                type: 'GET',
-                url: 'http://localhost:4567/posts/' + id
-            }
+            message: 'Post updated'
         });
     })
     .catch(err => {

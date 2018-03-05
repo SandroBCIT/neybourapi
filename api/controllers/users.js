@@ -17,11 +17,7 @@ exports.users_get_all = (req, res, next) => {
                     email: doc.email,
                     password: doc.password,
                     name: doc.name,
-                    posts: doc.posts,
-                    request: {
-                        type: "GET",
-                        url: "http://localhost:3000/users/" + doc._id
-                    }
+                    posts: doc.posts
                 };
             })
         };
@@ -142,11 +138,7 @@ exports.users_update_userPosts = (req, res, next) => {
     .exec()
     .then(result => {
         res.status(200).json({
-            message: 'Posts array updated',
-            request: {
-                type: 'GET',
-                url: 'http://localhost:4567/posts/' + id
-            }
+            message: 'Posts array updated'
         });
     })
     .catch(err => {
